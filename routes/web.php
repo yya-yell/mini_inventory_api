@@ -1,10 +1,9 @@
 <?php
 
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\TodayHistoryController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/' , [InventoryController::class , 'index']);
+Route::get('/test' , [InventoryController::class , 'test']);
 
-
-Route::post('/inventory/create' , [InventoryController::class , 'create']);

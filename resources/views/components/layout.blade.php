@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>MMI - Dashboard</title>
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -19,14 +19,13 @@
 
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="/css/custom.css">
 </head>
 
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         <x-sidebar />
         <!-- End of Sidebar -->
@@ -37,6 +36,9 @@
             <!-- Main Content -->
             <div id="content">
 
+                <x-edit-navigator />
+                <x-today-histroy-navigator />
+
                 <!-- Topbar -->
                 <x-topbar />
                 <!-- End of Topbar -->
@@ -45,9 +47,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                    </div>
+
 
                     <!-- Content Row -->
                     {{ $slot }}
@@ -93,8 +93,8 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    {{-- <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> --}}
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
@@ -105,8 +105,48 @@
     <!-- Custom scripts for all pages-->
     <script src="/js/sb-admin-2.min.js"></script>
 
-    
+    {{-- axios --}}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+    <script src="/js/inventory_edit.js"></script>
+    <script src="/js/all.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#datatable').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": "/todayhistory/all",
+                columns: [{
+                        data: 'id',
+                        'id': 'id'
+                    },
+                    {
+                        data: 'inventory.item_name'
+                    },
+                    {
+                        data: 'inventory.price'
+                    },
+                    {
+                        data: 'qty',
+                        'qty': 'qty'
+                    },
+                    {
+                        data: 'sub_total',
+                        'sub_total': 'sub_total'
+                    },
+                    {
+                        data: 'created_at'
+                    },
+                ],
+                columnDefs: [{
+                    "targets": [0, 1, 2],
+                    "sortable": false
+                }]
+            });
+        });
+    </script>
 
 </body>
 

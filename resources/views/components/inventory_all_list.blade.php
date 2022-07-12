@@ -1,23 +1,40 @@
+@props(['items', 'current'])
+<x-Helper.labelOfthepages name="Dashboard" />
 <div class="w-100">
-    <div class="row p-4" style="background-color: rgb(240,241,243)">
-        <div class="col-12">
-            <div>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Create
-                </button>
-                <button class="btn btn-info">Edit</button>
-            </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <x-Create_item.create />
         </div>
-        @foreach (range(1, 50) as $item)
-            <div class="col-md-1 m-2">
-                <div class="card  text-center p-2 border border-success">
-                    <div><a href="">အာလူးကျော်</a>
-                        <p class="">2500 ~ kyat</p>
+        <div class="col-lg-9 ">
+            <div class="row">
+               <x-ShowCase.action_buttons  :current="$current"/>
+                {{-- <div class="col-12">
+                    <div class="d-flex align-items-center">
+                        <x-drop-down :current="$current" />
+                        <button class="btn btn-outline-info mx-2" id="edit_items">Edit</button>
+                        <button class="btn btn-outline-warning mx-2 d-none" id="Done">Done</button>
+                        <button class="btn btn-outline-success mx-2" id="th_show_select">Create Today History</button>
+                        <x-search />
+                        <x-total-count />
+                    </div>
+                </div> --}}
+            </div>
+            @if (request('search'))
+                <div class="col-12">
+                    <div class="d-flex justify-content-center mt-3">
+                        <a href="/">clear search</a>
                     </div>
                 </div>
+            @endif
+            <div class="row scroll" id="inventoreis_wrapper">
+                {{-- @forelse ($items as $item)
+                    <x-ShowCase.inventories :item="$item" />
+                @empty
+                    <div class="w-100  mt-3 d-flex justify-content-center">
+                        <p class="text-info text-sm">Sorry, No items to show. But You can create.</p>
+                    </div>
+                @endforelse --}}
             </div>
-        @endforeach
+        </div>
     </div>
 </div>
-{{-- modal --}}
-<x-modal />

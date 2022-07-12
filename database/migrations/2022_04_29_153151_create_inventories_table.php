@@ -16,7 +16,10 @@ return new class extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
             $table->string('item_name');
+            $table->bigInteger('actual_price');
             $table->bigInteger('price');
+            $table->integer('qty');
+            $table->boolean('order_available')->default(false);
             $table->timestamps();
         });
     }
